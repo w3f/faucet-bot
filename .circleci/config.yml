@@ -35,8 +35,8 @@ jobs:
       - setup_remote_docker
       - run:
           command: |
-            ~/repo/build-image.sh lsaether/faucet-server ./dockerfiles/server/Dockerfile ;
-            ~/repo/build-image.sh lsaether/faucet-bot ./dockerfiles/bot/Dockerfile
+            ~/repo/scripts/docker_build.sh lsaether/faucet-server ./dockerfiles/server/Dockerfile ;
+            ~/repo/scripts/docker_build.sh lsaether/faucet-bot ./dockerfiles/bot/Dockerfile
 
 #   publishImage:
 #     docker:
