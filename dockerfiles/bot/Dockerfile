@@ -4,4 +4,5 @@ WORKDIR /bot
 
 COPY . /bot
 
+RUN npm i
 RUN npm run bot

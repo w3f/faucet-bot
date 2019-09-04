@@ -4,4 +4,5 @@ WORKDIR /server
 
 COPY . /server
 
+RUN npm i
 RUN npm run backend
