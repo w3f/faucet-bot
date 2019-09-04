@@ -1,0 +1,64 @@
+version: 2
+
+jobs:
+  # build:
+  #   docker:
+  #     - image: circleci/node:11.15
+
+  #   working_directory: ~/repo
+
+  #   steps:
+  #     - checkout
+
+  #     # Download and cache dependencies
+  #     - restore_cache:
+  #         keys:
+  #           - v1-dependencies-{{ checksum "package.json" }}
+  #           # fallback to using the latest cache if no exact match is found
+  #           - v1-dependencies-
+
+  #     - run: yarn install
+
+  #     - save_cache:
+  #         paths:
+  #           - node_modules
+  #         key: v1-dependencies-{{ checksum "package.json" }}
+
+  #     # run tests!
+  #     - run: yarn test
+
+  buildImage:
+    docker:
+      - image: web3f/ci-commons:v1.3.0
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          command: |
+            /scripts/build-image.sh lsaether/faucet-server ./dockerfiles/server/Dockerfile ;
+            /scripts/build-image.sh lsaether/faucet-bot ./dockerfiles/bot/Dockerfile
+
+  publishImage:
+    docker:
+      - image: web3f/ci-commons:v1.3.0
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          command: |
+            /scripts/publish-image.sh lsaether/faucet-server ./dockerfiles/server/Dockerfile;
+            /scripts/publish-image.sh lsaether/faucet-bot ./dockerfiles/bot/Dockerfile
+
+workflows:
+  version: 2
+  test_and_deploy: 
+    jobs:
+      - buildImage
+      - publishImage:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
+          requires:
+            - buildImage
