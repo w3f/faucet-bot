@@ -35,8 +35,8 @@ jobs:
       - setup_remote_docker
       - run:
           command: |
-            /scripts/build-image.sh lsaether/faucet-server ./dockerfiles/server/Dockerfile ;
-            /scripts/build-image.sh lsaether/faucet-bot ./dockerfiles/bot/Dockerfile
+            /scripts/build-image.sh lsaether/faucet-server ./dockerfiles/server ;
+            /scripts/build-image.sh lsaether/faucet-bot ./dockerfiles/bot
 
   publishImage:
     docker:
@@ -46,8 +46,8 @@ jobs:
       - setup_remote_docker
       - run:
           command: |
-            /scripts/publish-image.sh lsaether/faucet-server ./dockerfiles/server/Dockerfile;
-            /scripts/publish-image.sh lsaether/faucet-bot ./dockerfiles/bot/Dockerfile
+            /scripts/publish-image.sh lsaether/faucet-server ./dockerfiles/server ;
+            /scripts/publish-image.sh lsaether/faucet-bot ./dockerfiles/bot
 
 workflows:
   version: 2
