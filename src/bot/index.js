@@ -85,7 +85,7 @@ bot.on('Room.timeline', async (event) => {
     sendMessage(roomId, `
 Usage:
   !balance - Get the faucet's balance.
-  !drip <Address> - Send Alexander WNDs to <Address>.
+  !drip <Address> - Send Westend WNDs to <Address>.
   !faucet - Prints usage information.`);
   }
 });
