@@ -27,7 +27,7 @@ const sendMessage = (roomId, msg) => {
 }
 
 bot.on('RoomMember.membership', (_, member) => {
-  if (member.membership === 'invite' && member.userId === '@multichain:matrix.org') {
+  if (member.membership === 'invite' && member.userId === '@westend_faucet:matrix.org') {
     bot.joinRoom(member.roomId).done(() => {
       console.log(`Auto-joined ${member.roomId}.`);
     });
@@ -46,7 +46,7 @@ bot.on('Room.timeline', async (event) => {
   if (action === '!balance') {
     const res = await ax.get('/balance');
     const balance = res.data;
-    
+
     bot.sendHtmlMessage(roomId, `The faucet has ${balance/10**15} DOTs remaining.`, `The faucet has ${balance/10**15} DOTs remaining.`)
   }
 
@@ -77,7 +77,7 @@ bot.on('Room.timeline', async (event) => {
     bot.sendHtmlMessage(
       roomId,
       `Sent ${sender} ${amount} mDOTs. Extrinsic hash: ${res.data}.`,
-      `Sent ${sender} ${amount} mDOTs. <a href="https://polkascan.io/pre/alexander/transaction/${res.data}">View on Polkascan.</a>`
+      `Sent ${sender} ${amount} mDOTs. <a href="https://polkascan.io/pre/westend/transaction/${res.data}">View on Polkascan.</a>`
     );
   }
 
