@@ -47,7 +47,7 @@ bot.on('Room.timeline', async (event) => {
     const res = await ax.get('/balance');
     const balance = res.data;
 
-    bot.sendHtmlMessage(roomId, `The faucet has ${balance/10**15} DOTs remaining.`, `The faucet has ${balance/10**15} DOTs remaining.`)
+    bot.sendHtmlMessage(roomId, `The faucet has ${balance/10**15} WNDs remaining.`, `The faucet has ${balance/10**15} WNDs remaining.`)
   }
 
   if (action === '!drip') {
@@ -76,8 +76,8 @@ bot.on('Room.timeline', async (event) => {
 
     bot.sendHtmlMessage(
       roomId,
-      `Sent ${sender} ${amount} mDOTs. Extrinsic hash: ${res.data}.`,
-      `Sent ${sender} ${amount} mDOTs. <a href="https://polkascan.io/pre/westend/transaction/${res.data}">View on Polkascan.</a>`
+      `Sent ${sender} ${amount} mWNDs. Extrinsic hash: ${res.data}.`,
+      `Sent ${sender} ${amount} mWNDs. <a href="https://polkascan.io/pre/westend/transaction/${res.data}">View on Polkascan.</a>`
     );
   }
 
@@ -85,7 +85,7 @@ bot.on('Room.timeline', async (event) => {
     sendMessage(roomId, `
 Usage:
   !balance - Get the faucet's balance.
-  !drip <Address> - Send Alexander DOTs to <Address>.
+  !drip <Address> - Send Alexander WNDs to <Address>.
   !faucet - Prints usage information.`);
   }
 });
