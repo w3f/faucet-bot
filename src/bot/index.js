@@ -77,7 +77,7 @@ bot.on('Room.timeline', async (event) => {
     bot.sendHtmlMessage(
       roomId,
       `Sent ${sender} ${amount} mWNDs. Extrinsic hash: ${res.data}.`,
-      `Sent ${sender} ${amount} mWNDs. <a href="https://polkascan.io/pre/westend/transaction/${res.data}">View on Polkascan.</a>`
+      `Sent ${sender} ${amount} mWNDs. <a href="https://polkascan.io/pre/westend-m2/transaction/${res.data}">View on Polkascan.</a>`
     );
   }
 
