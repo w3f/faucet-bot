@@ -31,12 +31,12 @@ const createAndApplyActions = async () => {
 
     if (!(await storage.isValid(sender, address)) && !sender.endsWith(':web3.foundation')) {
       res.send('LIMIT');
-    }
-
-    storage.saveData(sender, address);
+    } else {
+      storage.saveData(sender, address);
     
-    const hash = await actions.sendDOTs(address, amount);
-    res.send(hash);
+      const hash = await actions.sendDOTs(address, amount);
+      res.send(hash);
+    }
   });
   
   
