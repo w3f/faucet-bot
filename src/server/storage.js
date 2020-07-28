@@ -2,8 +2,9 @@ const Datastore = require('nedb');
 const crypto = require('crypto');
 
 const SECOND  = 1000;
-const HOUR    = 60 * SECOND;
-const DAY     = 24 * HOUR;
+const MINUTE  = 60 * SECOND; 
+const HOUR    = 60 * MINUTE;
+const DAY     = 20 * HOUR; // almost 1 day, give some room for people missing their normal daily slots
 
 const CompactionTimeout = 10 * SECOND;
 
