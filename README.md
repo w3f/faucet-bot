@@ -1,5 +1,5 @@
 # faucet-bot
-A DNAR-giving bot frontend to the faucet for the NewRome testnet
+A Setheum Currencies - giving bot frontend to the faucet for the NewRome testnet
 
 ### Environment Required
 1. nodejs
