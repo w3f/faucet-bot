@@ -1,0 +1,75 @@
+[storage]
+[storage.redis]
+url = "redis://127.0.0.1:6379"
+
+[task]
+redis = "redis://127.0.0.1:6379"
+maxPendingCount = 20
+
+[faucet]
+endpoint = "ENDPOINT"
+precision = 18
+assets = ['DNAR', 'SETT']
+
+[faucet.account]
+mnemonic = "CUSTOM MNEMONIC"
+  
+[faucet.strategy]
+[faucet.strategy.normal]
+amounts = [
+  { asset = 'DNAR', amount = 2 },
+  { asset = 'SETT', amount = 2000 }
+]
+limit = 2
+frequency = ["1", "day"]
+
+[faucet.strategy.ren]
+amounts = [
+  { asset = 'RENBTC', amount = 0.2 }
+]
+limit = 10
+frequency = ["1", "month"]
+
+[channel]
+[channel.api]
+port = 3000
+limit = 2
+frequency = ["1", "day"]
+
+[channel.matrix]
+token = "TEST_TOKEN"
+userId = "@test-bot:matrix.org"
+limit = 2
+frequency = ["1", "day"]
+
+[channel.discord]
+activeChannelName = 'faucet-test-channel'
+token = "TEST_TOKEN"
+limit = 2
+frequency = ["1", "day"]
+
+[template]
+usage = """
+Usage:
+  !balance - Get the faucet's balance.
+  !drip <Address> - Send Test Tokens to <Address>.
+  !faucet - Prints usage information.
+"""
+balance = "<%= account %> The faucet has ${balance} remaining."
+success = """
+  Sent <%= account %> <%= amount %>. [View on Subscan](https://setheum-testnet.subscan.io/extrinsic/<%= tx %>)
+"""
+
+riotSuccess = """
+  Sent <%= account %> <%= amount %>. <a href="https://setheum-testnet.subscan.io/extrinsic/<%= tx %>">Viewd on Subscan</a>
+"""
+
+[template.error]
+"COMMON_ERROR" = "<%= account %> something error, please check your input."
+"PADDING_TASK_MAX" = "Fauct is busy, please retry later."
+"LIMIT" = "<%= account %> has reached their quota. Only request 2 per 1 day."
+"NO_STRATEGY" = "No strategy found."
+"CHECK_TX_FAILED" = "Build Extrinsic Failed"
+"CHECK_LIMIT_FAILED" = "Check Limit Error"
+"UPDATE_LIMIT_FAILED" = "Update Limit Error"
+"INSERT_TASK_FAILED" = "Insert Task Error"
