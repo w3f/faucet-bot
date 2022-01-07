@@ -2,24 +2,30 @@ const { WsProvider, ApiPromise } = require('@polkadot/api');
 const pdKeyring = require('@polkadot/keyring');
 
 class Actions {
-  async create(mnemonic, url = 'wss://westend-rpc.polkadot.io/') {
-    const provider = new WsProvider(url);
+  async create({ mnemonic, polkadot }) {
+    const { endpoint, ss58Prefix } = polkadot;
+    const provider = new WsProvider(endpoint);
     this.api = await ApiPromise.create({ provider });
     const keyring = new pdKeyring.Keyring({ type: 'sr25519' });
+    keyring.setSS58Format(ss58Prefix);
     this.account = keyring.addFromMnemonic(mnemonic);
   }
 
-  async sendDOTs(address, amount = 150) {
-    amount = amount * 10**6;
-
+  async sendToken(address, amount) {
     const transfer = this.api.tx.balances.transfer(address, amount);
     const hash = await transfer.signAndSend(this.account);
-
     return hash.toHex();
   }
 
   async checkBalance() {
-    return this.api.query.balances.freeBalance(this.account.address);
+    let balance = 0;
+    try {
+      const { data: { free } } = await this.api.query.system.account(this.account.address);
+      balance = free;
+    } catch (error) {
+      console.error('Check balance failed. error: ', error);
+    }
+    return balance;
   }
 }
 
