@@ -29,7 +29,7 @@ const createAndApplyActions = async () => {
       res.send('LIMIT');
     } else {
       storage.saveData(sender, address);
-      const hash = await actions.sendDOTs(address, amount);
+      const hash = await actions.sendToken(address, amount);
       res.send(hash);
     }
   });
