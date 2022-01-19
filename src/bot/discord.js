@@ -23,7 +23,7 @@ client.on('ready', () => {
 
 client.on('messageCreate', async msg => {
   const { content, author: { id: sender } } = msg;
-  let [action, arg0] = content.split(' ');
+  let [action, arg0] = content.split(/[\s\n]+/);
 
   if (action === '!balance') {
     const res = await ax.get('/balance');
